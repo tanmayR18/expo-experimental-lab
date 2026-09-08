@@ -8,13 +8,12 @@ expo-env.d.ts
 # Dependencies
 node_modules/
 
-# Expo
+# Expo / React Native
 .expo/
 .expo-shared/
 web-build/
+build/
 dist/
-
-# Native build output
 android/.gradle/
 android/app/build/
 android/build/
@@ -26,10 +25,12 @@ ios/build/
 .env.*
 !.env.example
 
-# Local tooling and operating-system files
+# OS / editor
 .DS_Store
-.idea/
 .vscode/
+.idea/
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
