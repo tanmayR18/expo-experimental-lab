@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-type FormErrors = Partial<Record<'name' | 'email' | 'password', string>>
+type FormErrors = Partial<Record<"email" | "password", string>>;
 
-const Form = ({onSubmit}: any) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [submitted, setSubmitted] = useState(false)
+const Form = ({ onSubmit }: { onSubmit?: () => void }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
-    const nextErrors: FormErrors = {}
-
-    if (!name.trim()) {
-      nextErrors.name = 'Enter your name.'
-    }
+    const nextErrors: FormErrors = {};
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      nextErrors.email = 'Enter a valid email address.'
+      nextErrors.email = "Enter a valid email address.";
     }
 
     if (password.length < 8) {
-      nextErrors.password = 'Password must be at least 8 characters.'
+      nextErrors.password = "Password must be at least 8 characters.";
     }
 
-    setErrors(nextErrors)
-    setSubmitted(Object.keys(nextErrors).length === 0)
-    onSubmit?.()
-  }
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length === 0) {
+      setSubmitted(true);
+      onSubmit?.();
+    } else {
+      setSubmitted(false);
+    }
+  };
 
   return (
     <View style={styles.screen} accessibilityLabel="login-form">
@@ -36,25 +35,6 @@ const Form = ({onSubmit}: any) => {
         <Text style={styles.eyebrow}>YOUR ACCOUNT</Text>
         <Text style={styles.title}>Create your login</Text>
         <Text style={styles.subtitle}>Enter your details to continue.</Text>
-
-        <View style={styles.field}>
-          <Text style={styles.label}>Name</Text>
-          <TextInput
-            accessibilityLabel="name-input"
-            testID="name-input"
-            autoCapitalize="words"
-            onChangeText={(value) => {
-              setName(value)
-              setSubmitted(false)
-            }}
-            placeholder="Your name"
-            placeholderTextColor="#7B8580"
-            returnKeyType="next"
-            style={styles.input}
-            value={name}
-          />
-          {errors.name ? <Text style={styles.error} testID="name-error">{errors.name}</Text> : null}
-        </View>
 
         <View style={styles.field}>
           <Text style={styles.label}>Email</Text>
@@ -65,8 +45,8 @@ const Form = ({onSubmit}: any) => {
             autoComplete="email"
             keyboardType="email-address"
             onChangeText={(value) => {
-              setEmail(value)
-              setSubmitted(false)
+              setEmail(value);
+              setSubmitted(false);
             }}
             placeholder="you@example.com"
             placeholderTextColor="#7B8580"
@@ -74,7 +54,11 @@ const Form = ({onSubmit}: any) => {
             style={styles.input}
             value={email}
           />
-          {errors.email ? <Text style={styles.error} testID="email-error">{errors.email}</Text> : null}
+          {errors.email ? (
+            <Text style={styles.error} testID="email-error">
+              {errors.email}
+            </Text>
+          ) : null}
         </View>
 
         <View style={styles.field}>
@@ -84,8 +68,8 @@ const Form = ({onSubmit}: any) => {
             testID="password-input"
             autoComplete="new-password"
             onChangeText={(value) => {
-              setPassword(value)
-              setSubmitted(false)
+              setPassword(value);
+              setSubmitted(false);
             }}
             placeholder="At least 8 characters"
             placeholderTextColor="#7B8580"
@@ -93,7 +77,11 @@ const Form = ({onSubmit}: any) => {
             style={styles.input}
             value={password}
           />
-          {errors.password ? <Text style={styles.error} testID="password-error">{errors.password}</Text> : null}
+          {errors.password ? (
+            <Text style={styles.error} testID="password-error">
+              {errors.password}
+            </Text>
+          ) : null}
         </View>
 
         <Pressable
@@ -101,7 +89,11 @@ const Form = ({onSubmit}: any) => {
           accessibilityLabel="submit-button"
           testID="submit-button"
           onPress={handleSubmit}
-          style={({ pressed }) => [styles.submitButton, pressed && styles.submitButtonPressed]}>
+          style={({ pressed }) => [
+            styles.submitButton,
+            pressed && styles.submitButtonPressed,
+          ]}
+        >
           <Text style={styles.submitText}>Submit</Text>
         </Pressable>
 
@@ -112,37 +104,37 @@ const Form = ({onSubmit}: any) => {
         ) : null}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Form
+export default Form;
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#F2F5F1',
+    justifyContent: "center",
+    backgroundColor: "#F2F5F1",
     padding: 24,
   },
   form: {
-    width: '100%',
+    width: "100%",
     maxWidth: 440,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   eyebrow: {
-    color: '#39705B',
+    color: "#39705B",
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: "700",
     letterSpacing: 1.2,
     marginBottom: 10,
   },
   title: {
-    color: '#192820',
+    color: "#192820",
     fontSize: 30,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   subtitle: {
-    color: '#58665E',
+    color: "#58665E",
     fontSize: 15,
     marginTop: 8,
     marginBottom: 28,
@@ -151,46 +143,46 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   label: {
-    color: '#26372E',
+    color: "#26372E",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 8,
   },
   input: {
     minHeight: 52,
     borderWidth: 1,
-    borderColor: '#C8D2CA',
+    borderColor: "#C8D2CA",
     borderRadius: 6,
-    backgroundColor: '#FFFFFF',
-    color: '#192820',
+    backgroundColor: "#FFFFFF",
+    color: "#192820",
     fontSize: 16,
     paddingHorizontal: 14,
   },
   error: {
-    color: '#B33F32',
+    color: "#B33F32",
     fontSize: 13,
     marginTop: 6,
   },
   submitButton: {
     minHeight: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 6,
-    backgroundColor: '#39705B',
+    backgroundColor: "#39705B",
     marginTop: 4,
   },
   submitButtonPressed: {
-    backgroundColor: '#2D5A48',
+    backgroundColor: "#2D5A48",
   },
   submitText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   success: {
-    color: '#28634A',
+    color: "#28634A",
     fontSize: 14,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 16,
   },
-})
+});
