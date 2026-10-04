@@ -1,10 +1,9 @@
-import { StyleSheet, View } from 'react-native';
-import Form from '@/components/rntl/form';
+import { StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Form />
+      <Text>Home Screen</Text>
     </View>
   );
 }
