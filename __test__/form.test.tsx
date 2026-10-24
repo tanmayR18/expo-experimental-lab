@@ -1,4 +1,4 @@
-import Form from "@/components/rntl/form";
+import Form from "@/components/testing/rntl/form";
 import { render, screen, userEvent } from "@testing-library/react-native";
 
 describe("Login Form Test cases", () => {
