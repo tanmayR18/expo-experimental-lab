@@ -1,4 +1,4 @@
-import AboutUs from "@/components/testing/ritik-prasad/AboutUs";
+import AboutUs from "@/testing/components/ritik-prasad/AboutUs";
 import { render, screen } from "@testing-library/react-native";
 
 test("About screen test", async () => {
