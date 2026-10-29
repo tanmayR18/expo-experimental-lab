@@ -1,4 +1,4 @@
-import { createUser, fetchUser } from "@/utils/apis";
+import { createUser, fetchUser } from "@/testing/utils/apis";
 import axios from "axios";
 
 jest.mock("axios");
