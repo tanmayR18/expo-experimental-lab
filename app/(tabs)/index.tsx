@@ -1,28 +1,37 @@
+// import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
 import {
   Button,
+  Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
   const [value, setValue] = useState("");
   const scrollViewRef = useRef<ScrollView>(null);
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <View style={[styles.container]}>
       <View>
         <Text>Home Screen</Text>
         <Button
           title="Bottomsheet"
           onPress={() => router.push("/bottomsheet")}
         />
+
+        <Pressable
+          onPress={() => router.push("/bottomsheet")}
+          accessibilityRole="button"
+        >
+          <Text>bottomsheet</Text>
+        </Pressable>
 
         <Button
           title="counter"
