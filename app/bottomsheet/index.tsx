@@ -55,6 +55,7 @@ export default function BottomSheetScreen() {
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
       footerComponent={renderFooter}
+      accessible={false}
     >
       <View style={styles.header}>
         <Text>Custom bottom sheet header</Text>
@@ -62,10 +63,16 @@ export default function BottomSheetScreen() {
       <BottomSheetFlatList
         data={items}
         keyExtractor={(item: string) => item}
-        renderItem={({ item }: { item: string }) => (
-          <View style={styles.listItem}>
+        renderItem={({ item, index }: { item: string; index: number }) => (
+          <Pressable
+            testID={`item-${index + 1}`}
+            accessible={true}
+            accessibilityRole="button"
+            accessibilityLabel={item}
+            style={styles.listItem}
+          >
             <Text>{item}</Text>
-          </View>
+          </Pressable>
         )}
         style={styles.list}
       />
